@@ -57,6 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
-/config_priv.json
+config.json
 
-/token_priv.json
+sessions/

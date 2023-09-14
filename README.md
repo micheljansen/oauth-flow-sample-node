@@ -1,7 +1,5 @@
-
 # Sample OAuth Flow for Node
-You can check out [this blog post](https://developers.smartsheet.com/blog/creating-smartsheet-oauth-flow-in-node) for a more detailed explanation of Smartsheet's OAuth Flow.
-Accessing Smartsheet through the API requires an access token to be included in the Authorization header of each request. For standalone applications that can run with your personal credentials, you can [generate an access token](https://smartsheet-platform.github.io/api-docs/#authentication-and-access-tokens) in the Smartsheet UI. However, if your application needs to let users login with their own account, then you must implement the full [Oauth flow](https://smartsheet-platform.github.io/api-docs/#oauth-flow).
+This is based on the Smartsheet sample flow (see [this blog post](https://developers.smartsheet.com/blog/creating-smartsheet-oauth-flow-in-node). It allows users to go through the Smartsheet authentication flow to get an authentication token, which is then stored in a session. It also shows how to then use it to access a sheet. 
 
 This sample demonstrates a lightweight implementation of the Smartsheet OAuth flow using an express server. To configure this sample to work for with your own app there are three important changes to pay attention to:
 - Register your application with Smartsheet and fill out all the fields. 
@@ -46,9 +44,13 @@ Congratulations! You now have a working OAuth flow that successfully (read: hope
 
 #### Refreshing the Access Token
 You'll need to periodically refresh the Access Token as it expires 7 days after being issued. However, rather than going through the full OAuth Flow again, a better option is to use the Refresh Token. Using the refresh_token from your the last successful authorization, you can make a call to a refresh token endpoint to issue a new authorization token.
-In **this sample only**, once you've gone through an OAuth Flow a file is saved named `token_priv.json`. You can force an *expired* Access Token by manually changing the token expiration date in this file. Specifically, you need to change EXPIRES_IN to a date time that is earlier than the *current* date time.
 
 **Important**: This sample app runs on localhost, but implementing OAuth on a production application will have some major differences. The key things to pay attention to:
-- The tokens **must** be handled in a more secure way. They should be stored in a database. The use of a JSON file is **only** for this sample.
 - The *Redirect URL* must be set to a secure URL on the production server that the developer has control over so the authorization code is safe and can be easily captured.
 - Make sure the App Description is polished on Smartsheet. Any customers following the OAuth Flow will see the app description in the authorization window.
+
+Tip: you can use localtunnel to temporarily create an internet-facing endpoint for Smartsheet to call back to. This allows you to, for example, set the app redirect URL of the Smartsheet "App" configuration to https://froq-smartsheet-auth-test.loca.lt/callback 
+
+and then create a tunnel for that URL like this:
+> $ lt -p 3000 -s froq-smartsheet-auth-test
+> your url is: https://froq-smartsheet-auth-test.loca.lt

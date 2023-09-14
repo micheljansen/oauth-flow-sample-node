@@ -18,9 +18,12 @@
   "homepage": "https://github.com/TaylorKrusen/oauth-flow-sample-node#readme",
   "description": "",
   "dependencies": {
+    "ejs": "^3.1.9",
     "express": "^4.16.2",
+    "express-session": "^1.17.3",
     "nodemon": "^1.17.4",
     "querystring": "^0.2.0",
+    "session-file-store": "^1.5.0",
     "smartsheet": "^1.4.2"
   }
 }
