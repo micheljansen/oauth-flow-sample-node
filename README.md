@@ -53,4 +53,5 @@ Tip: you can use localtunnel to temporarily create an internet-facing endpoint f
 
 and then create a tunnel for that URL like this:
 > $ lt -p 3000 -s froq-smartsheet-auth-test
+> 
 > your url is: https://froq-smartsheet-auth-test.loca.lt
